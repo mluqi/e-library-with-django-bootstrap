@@ -1,41 +1,219 @@
-*{
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f9f9f9;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    overflow: hidden;
 }
 
-body{
-    min-height: 100vh;
-    display: grid;
-    place-content: center;
-    font-size: 3rem;
-    background-color: black;
-    color: whitesmoke;
+h1, h5 {
+    color: #333;
+    font-weight: bold;
 }
 
-nav{
-    padding: 1rem;
-    background-color: blueviolet;
-    color: white;
-    font-size: 2.5rem;
+/* Sidebar Styles */
+.sidebar {
+    height: 100vh;
+    width: 180px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-right: 1px solid #ddd;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
 }
 
-main{
-    flex-grow: 1;
-    display: grid;
-    place-content: center;
-}
-
-h1, 
-p {
+.sidebar h4 {
     text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
 }
 
-a{
+.sidebar a {
+    padding: 12px;
     text-decoration: none;
-    color: white;
+    color: #333;
+    display: block;
+    font-size: 16px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+    border-radius: 5px;
 }
 
-a:hover{
-    opacity: .85;
+.sidebar a:hover,
+.sidebar a.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Content Styles */
+.content {
+    border-radius: 8px;
+    margin-left: 120px;
+    overflow-y: auto;
+    height: 100vh;
+    box-sizing: border-box;
+    padding: 20px;
+    padding-left: 100px;
+}
+
+.navbar {
+    background-color: #fff;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .form-control {
+    width: 500px;
+    border-radius: 15px;
+    padding-left: 40px;
+    background-image: url('/static/icons/search.svg');
+    background-size: 12px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+}
+
+.navbar .nav{
+    display: flex;
+}
+
+
+/* KATALOG PAGE */
+
+.table {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+    text-align: center;
+    padding: 10px;
+    border-top: none;
+}
+
+.table th {
+    background-color: #f1f1f1;
+    font-weight: 600;
+}
+
+.table td{
+    padding: 10px;
+}
+
+.table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.table tr a{
+    text-decoration: none;
+}
+
+.table tr td ul{
+    padding: 0;
+    text-decoration: none;
+}
+.table tr td ul li{
+    list-style-type: none;
+    margin: 5px;
+}
+
+/* Status Badges */
+.status-completed {
+    background-color: #28a745;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: normal;
+}
+
+.status-reading {
+    background-color: #ffc107;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: normal;
+}
+
+/* Pagination Styles */
+.pagination {
+    justify-content: center;
+    margin-top: 20px;
+    list-style-type: none;
+    text-decoration: none;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.pagination .page-link {
+    color: white;
+    border-radius: 50%;
+    margin: 0 5px;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination .page-link:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Add Book Button */
+.add-book-btn {
+    display: inline;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 15px;
+    padding: 10px 8px;
+    font-size: 12px;
+    font-weight: 300;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.add-book-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .content {
+        margin-left: 0;
+        padding: 10px;
+    }
+
+    .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        border-right: none;
+    }
+    .content{
+        margin-left: 0;
+        padding-bottom: 50px;
+    }
+
+    .navbar .form-control {
+        width: 100%;
+    }
 }

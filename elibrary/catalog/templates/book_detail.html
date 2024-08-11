@@ -1,0 +1,70 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}Details Book{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/detail.css' %}">
+<div class="book-detail-container">
+    <div class="book-image">
+        {% if book.cover_image %}
+            <img
+             src="{{ book.cover_image.url }}" 
+             alt="{{ book.title }}" 
+             class="cover-image">
+        {% else %}
+            <p>No cover image available.</p>
+        {% endif %}
+    </div>
+    <div class="book-details">
+        <h2>{{ book.title }}</h2>
+        <p class="author">{{ book.author }}</p>
+        <div class="book-status">
+            <a href="{% url 'catalog:edit_book' book.id %}" class="btn btn-sm">
+                <img src="{% static 'icons/edit.svg' %}" alt="Edit" width="16" height="16">
+            </a>
+            {% if book.status == 'completed' %}
+                <span class="status-completed">Completed</span>
+            {% elif book.status == 'reading' %}
+                <span class="status-reading">Reading</span>
+            {% endif %}
+        </div>
+        <div class="book-description">
+            <h3>Sinopsis</h3>
+            <p id="description-preview">{{ book.description|truncatewords:58 }}</p> 
+            <p id="description-full" style="display:none;">{{ book.description }}</p>
+            <a href="#" id="toggle-description">Baca Selengkapnya</a>
+        </div>
+        <div class="book-meta">
+            <h4>Detail Book</h4>
+            <ul>
+                <li><strong>ISBN-13:</strong> {{ book.title }}</li>
+                <li><strong>Publisher:</strong> {{ book.author }}</li>
+                <li><strong>Publication Date:</strong> {{ book.year }}</li>
+                <li><strong>Pages:</strong> {{ book.pages }}</li>
+                <li><strong>Dimensions:</strong> {{ book.title }}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var toggleLink = document.getElementById('toggle-description');
+        var descriptionPreview = document.getElementById('description-preview');
+        var descriptionFull = document.getElementById('description-full');
+        
+        toggleLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            if (descriptionFull.style.display === 'none') {
+                descriptionFull.style.display = 'block';
+                descriptionPreview.style.display = 'none';
+                toggleLink.textContent = 'Tutup';
+            } else {
+                descriptionFull.style.display = 'none';
+                descriptionPreview.style.display = 'block';
+                toggleLink.textContent = 'Baca Selengkapnya';
+            }
+        });
+    });
+</script>
+{% endblock %}

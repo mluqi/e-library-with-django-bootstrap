@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block title %}
+    Register a New User
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
+<div class="container">
+    <h1>Register a New User</h1>
+    {% if message %}
+        <div class="alert alert-info" role="alert">
+            {{ message }}
+        </div>
+    {% endif %}
+    <form class="form-with_validation" action="/users/register/" method="post">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="id_username">Username:</label>
+            {{ form.username.errors }}
+            <input type="text" id="id_username" name="username" class="form-control">
+        </div>
+        
+        <div class="form-group">
+            <label for="id_password1">Password:</label>
+            {{ form.password1.errors }}
+            <input type="password" id="id_password1" name="password1" class="form-control">
+        </div>
+        
+        <div class="form-group">
+            <label for="id_password2">Password confirmation:</label>
+            {{ form.password2.errors }}
+            <input type="password" id="id_password2" name="password2" class="form-control">
+        </div>
+
+        {% if not hide_form %}
+            <button class="form-submit">Submit</button>
+        {% endif %}
+    </form>
+</div>
+{% endblock %}

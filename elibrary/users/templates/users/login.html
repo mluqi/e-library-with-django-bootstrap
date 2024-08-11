@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block title %}
+    User Login
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+<div class="container">
+    <h1>User Login</h1>
+    {% if message %}
+    <div class="alert alert-info" role="alert">
+        {{ message }}
+    </div>
+    {% endif %}
+    <form class="form-with_validation" action="/users/login/" method="post">
+        {% csrf_token %}
+        {{ form }}
+        {% if not hide_form %}
+            {% if request.GET.next %}
+                <input type="hidden" name="next" value="{{ request.GET.next }}" />
+            {% endif %}
+            <button class="form-submit">Submit</button>
+        {% endif %}
+    </form>
+</div>
+{% endblock %}

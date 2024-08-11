@@ -1,0 +1,45 @@
+/* Custom styles to complement Bootstrap */
+body {
+    background-color: #f8f9fa;
+}
+
+.container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 30px;
+    padding-top: 10px;
+}
+
+h1 {
+    color: #333;
+}
+
+.form-label {
+    font-weight: 500;
+}
+
+.border-dashed {
+    border-style: dashed !important;
+}
+
+.btn-primary {
+    background-color: #3f51b5;
+    border-color: #3f51b5;
+}
+
+.btn-primary:hover {
+    background-color: #303f9f;
+    border-color: #303f9f;
+}
+
+.btn-outline-secondary {
+    color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}

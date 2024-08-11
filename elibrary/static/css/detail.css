@@ -1,0 +1,84 @@
+/* BOOK DETAIL */
+.book-detail-container {
+    display: flex;
+    gap: 20px;
+    margin: 40px 0;
+}
+
+.book-image {
+    flex: 1;
+}
+
+.cover-image {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+.book-details {
+    flex: 2;
+}
+
+.book-details h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.book-details .author {
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.book-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.book-status .status-tag {
+    padding: 5px 15px;
+    border-radius: 20px;
+}
+
+.book-status .status-tag.Completed {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.book-status .status-tag.Reading {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.book-description a{
+    text-decoration: none;
+}
+
+.book-description h3 {
+    margin-bottom: 10px;
+}
+
+.book-description #description-preview{
+    margin: 0;
+}
+
+.book-meta h4 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.book-meta ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.book-meta ul li {
+    margin-bottom: 5px;
+}
+
+.cover-image {
+    width: 300px;
+    height: 400px;
+    object-fit: cover;
+}

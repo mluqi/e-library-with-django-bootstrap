@@ -1,0 +1,97 @@
+{% extends 'layout.html' %}
+
+{% block title %}Edit Book{% endblock %}
+
+{% block content %}
+<div class="container mt-5 p-4 border rounded bg-white">
+    <h1 class="mb-4">Edit Book</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <!-- About Book Section -->
+        <div class="mb-4">
+            <h2 class="h5 mb-3">About Book</h2>
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title" value="{{ form.title.value }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="author" class="form-label">Author</label>
+                <input type="text" class="form-control" id="author" name="author" value="{{ form.author.value }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="year" class="form-label">Year</label>
+                <input type="date" class="form-control" id="year" name="year" value="{{ form.year.value }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <input type="text" class="form-control" id="category" name="category" value="{{ form.category.value }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="4">{{ form.description.value }}</textarea>
+            </div>
+        </div>
+
+        <!-- Progress Section -->
+        <div class="mt-4 mb-4">
+            <h2 class="h5 mb-3">Progress</h2>
+            <div class="mb-3">
+                <label for="status" class="form-label">Status</label>
+                <select class="form-select" id="status" name="status" required>
+                    <option value="reading" {% if form.status.value == 'reading' %}selected{% endif %}>Reading</option>
+                    <option value="completed" {% if form.status.value == 'completed' %}selected{% endif %}>Completed</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="score" class="form-label">Score</label>
+                <input type="number" class="form-control" id="score" name="score" step="0.1" value="{{ form.score.value }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="pages" class="form-label">Pages</label>
+                <input type="number" class="form-control" id="pages" name="pages" value="{{ form.pages.value }}" required>
+            </div>
+        </div>
+
+        <!-- Book Cover Section -->
+        <div class="mt-4 mb-4">
+            <h2 class="h5 mb-3">Book Cover</h2>
+            {% if book.cover_image %}
+                <img id="cover-preview" src="{{ book.cover_image.url }}" alt="{{ book.title }} cover" class="img-thumbnail mb-3" style="width: 300px; height: 400px;">
+            {% else %}
+                <img id="cover-preview" src="#" alt="Cover Preview" class="img-thumbnail mb-3" style="width: 300px; height: 400px; display: none;">
+            {% endif %}
+            <div class="border border-2 border-dashed p-3 text-center">
+                <p class="mb-2">Drop your image here, or</p>
+                <button type="button" class="btn btn-outline-secondary" onclick="document.getElementById('cover_image').click()">Click to browse</button>
+                <input type="file" class="d-none" id="cover_image" name="cover_image" accept="image/*" onchange="previewImage(event)">
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <label for="pdf_file" class="form-label">PDF File</label>
+            {% if form.instance.pdf_file %}
+                <p>Current PDF: <a href="{{ form.instance.pdf_file.url }}" target="_blank">Download</a></p>
+            {% endif %}
+            <input type="file" class="form-control" id="pdf_file" name="pdf_file">
+        </div>        
+
+        <!-- Save Button -->
+        <div class="d-flex justify-content-end mt-4">
+            <a href="{% url 'catalog:book_detail' book.id %}" class="btn btn-outline-secondary me-2">Cancel</a>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+    </form>
+</div>
+<script>
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+            var output = document.getElementById('cover-preview');
+            output.src = reader.result;
+            output.style.display = 'block';
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+    </script>
+{% endblock %}

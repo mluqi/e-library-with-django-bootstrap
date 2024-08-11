@@ -1,0 +1,100 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}Add Book{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/add_book.css' %}">
+<h1 class="mb-4">Add Book</h1>
+
+<!-- About Book Section -->
+<div>
+    <div>
+        <div class="mt-4 p-4 border rounded bg-white">
+        <h2 class="h5 mb-3">About Book</h2>
+        <form method="post" enctype="multipart/form-data" action="{% url 'catalog:add_book' %}">
+            {% csrf_token %}
+            
+            <!-- Book Details -->
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+            <div class="mb-3">
+                <label for="author" class="form-label">Author</label>
+                <input type="text" class="form-control" id="author" name="author" required>
+            </div>
+            <div class="mb-3">
+                <label for="year" class="form-label">Publication Date</label>
+                <input type="date" class="form-control" id="year" name="year" required>
+            </div>
+            <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <input type="text" class="form-control" id="category" name="category" required>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Descriptions</label>
+                <textarea class="form-control" id="description" name="description" rows="4"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="pages" class="form-label">Pages</label>
+                <input type="number" class="form-control" id="pages" name="pages" required>
+            </div>
+        </div>
+
+            <!-- Progress Section -->
+            <div class="mt-4 p-4 border rounded bg-white">
+                <h2 class="h5 mb-3">Progress</h2>
+                <div class="mb-3">
+                    <label for="status" class="form-label">Status</label>
+                    <select class="form-select" id="status" name="status" required>
+                        <option value="completed">Completed</option>
+                        <option value="reading">Reading</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="score" class="form-label">Score</label>
+                    <input type="number" class="form-control" id="score" name="score" step="0.1" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="pdf_file" class="form-label">PDF File</label>
+                {% if form.instance.pdf_file %}
+                    <p>Current PDF: <a href="{{ form.instance.pdf_file.url }}" target="_blank">Download</a></p>
+                {% endif %}
+                <input type="file" class="form-control" id="pdf_file" name="pdf_file">
+            </div>            
+
+            <!-- Book Cover Section -->
+            <div class="mt-4 p-4 border rounded bg-white">
+                <h2 class="h5 mb-3">Book Cover</h2>
+                <div class="border border-2 border-dashed p-3 text-center">
+                    <p class="mb-2">Drop your image here, or</p>
+                    <button type="button" class="btn btn-outline-secondary" onclick="document.getElementById('cover_image').click()">Click to browse</button>
+                    <input type="file" class="d-none" id="cover_image" name="cover_image" onchange="previewImage(event)">
+                    <img id="image_preview" class="mt-3" style="max-width: 200px; display: none;" />
+                </div>
+            </div>
+
+            <!-- Save and Cancel Buttons -->
+            <div class="d-flex justify-content-end mt-4">
+                <a href="{% url 'catalog:list' %}" class="btn btn-outline-secondary me-2">Cancel</a>
+                <button type="submit" class="btn btn-primary">
+                    Save
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    function previewImage(event) {
+        var input = event.target;
+        var reader = new FileReader();
+        reader.onload = function() {
+            var imgElement = document.getElementById('image_preview');
+            imgElement.src = reader.result;
+            imgElement.style.display = 'block';
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+</script>
+{% endblock %}
